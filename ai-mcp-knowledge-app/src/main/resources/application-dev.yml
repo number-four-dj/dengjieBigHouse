@@ -13,12 +13,12 @@ spring:
   ai:
     mcp:
       client:
-        request-timeout: 360s
+        request-timeout: 180s
         stdio:
-          servers-configuration: classpath:/config/mcp-servers-config.json
+          servers-configuration: classpath:/config/mcp-servers-config-3.json
     openai:
       base-url: https://apis.itedus.cn
-      api-key: sk-n3fG89HM0BldyL2X93957025157c4c12A4D23e3251E5D1E2
+      api-key: sk-Hvvp1HH0fYQoUmfw0b865464Ea3c4d3b82Ff7****找小傅哥申请
       chat:
         options:
           model: gpt-4o
