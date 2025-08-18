@@ -1,5 +1,5 @@
 spring:
   application:
-    name: ai-mcp-knowledge
+    name: ai-rag-knowledge
   profiles:
     active: dev

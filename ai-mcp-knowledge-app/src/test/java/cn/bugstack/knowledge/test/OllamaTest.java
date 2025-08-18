@@ -1,5 +1,6 @@
 package cn.bugstack.knowledge.test;
 
+import cn.bugstack.knowledge.test.Utils.TokenTextSplitterWithContext;
 import com.alibaba.fastjson.JSON;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.ai.model.Media;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaOptions;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
+import org.springframework.ai.transformer.splitter.TextSplitter;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
@@ -112,19 +114,22 @@ public class OllamaTest {
         TikaDocumentReader reader = new TikaDocumentReader("./data/file.txt");
 
         List<Document> documents = reader.get();
-        List<Document> documentSplitterList = tokenTextSplitter.apply(documents);
+        TokenTextSplitterWithContext splitter = new TokenTextSplitterWithContext(100, 20);
+        List<Document> documentSplitterList = splitter.split(documents);
 
-        documents.forEach(doc -> doc.getMetadata().put("knowledge", "知识库名称v3"));
-        documentSplitterList.forEach(doc -> doc.getMetadata().put("knowledge", "知识库名称v3"));
+        documents.forEach(doc -> doc.getMetadata().put("knowledge", "ai知识库"));
+        documentSplitterList.forEach(doc -> doc.getMetadata().put("knowledge", "ai知识库"));
 
         pgVectorStore.accept(documentSplitterList);
 
         log.info("上传完成");
     }
 
+
+
     @Test
     public void chat() {
-        String message = "王大瓜今年几岁";
+        String message = "人工智能学科始于哪一年";
 
         String SYSTEM_PROMPT = """
                 Use the information from the DOCUMENTS section to provide accurate answers but act as if you knew this information innately.
@@ -137,7 +142,7 @@ public class OllamaTest {
         SearchRequest request = SearchRequest.builder()
                 .query(message)
                 .topK(5)
-                .filterExpression("knowledge == '知识库名称v3'")
+                .filterExpression("knowledge == 'ai知识库'")
                 .build();
 
         List<Document> documents = pgVectorStore.similaritySearch(request);
@@ -158,5 +163,7 @@ public class OllamaTest {
 
         log.info("测试结果:{}", JSON.toJSONString(chatResponse));
     }
+
+
 
 }

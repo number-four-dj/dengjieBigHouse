@@ -65,6 +65,7 @@ public class OpenAiTest {
                 OpenAiChatOptions.builder()
                         .model("gpt-4o")
                         .build()));
+
         log.info("测试结果(call):{}", JSON.toJSONString(response));
     }
 
@@ -159,6 +160,10 @@ public class OpenAiTest {
                         .build()));
 
         log.info("测试结果:{}", JSON.toJSONString(chatResponse));
+    }
+
+    @Test
+    public void test_() {
     }
 
 }
