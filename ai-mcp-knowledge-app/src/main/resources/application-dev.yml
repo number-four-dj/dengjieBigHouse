@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8099
 
 spring:
 #  main:
@@ -13,14 +13,21 @@ spring:
   ai:
     mcp:
       client:
-        stdio:
-          servers-configuration: classpath:/config/mcp-servers-config-4.json
+        request-timeout: 360s
+        sse:
+          connections:
+            mcp-server-csdn:
+              url: http://127.0.0.1:8101
+            mcp-server-weixin:
+              url: http://127.0.0.1:8102
+#        stdio:
+#          servers-configuration: classpath:/config/mcp-servers-config-4.json
     openai:
       base-url: https://apis.itedus.cn
-      api-key: sk-Hvvp1HH0fYQoUmfw0b865464Ea3c4d3b82Ff7b128e260aFf
+      api-key: sk-CT8LLsAzoolLJZK523Db2aC3E54a4e63A45f0c776a1414E2
       chat:
         options:
-          model: gpt-4o
+          model: gpt-4.1-mini
       embedding-model: text-embedding-ada-002
       embedding:
         options:

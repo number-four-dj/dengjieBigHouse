@@ -9,11 +9,19 @@ set -e
 ALIYUN_REGISTRY="registry.cn-hangzhou.aliyuncs.com"
 NAMESPACE="fuzhengwei"
 IMAGE_NAME="ai-mcp-knowledge-app"
-IMAGE_TAG="1.1"
+IMAGE_TAG="2.4"
+
+# 读取本地配置文件
+if [ -f ".local-config" ]; then
+  source .local-config
+else
+  echo ".local-config 文件不存在，请创建并填写 ALIYUN_USERNAME 和 ALIYUN_PASSWORD"
+  exit 1
+fi
 
 # Login to Aliyun Docker Registry
 echo "Logging into Aliyun Docker Registry..."
-docker login --username="你的账号" --password="你的密码" $ALIYUN_REGISTRY
+docker login --username="${ALIYUN_USERNAME}" --password="${ALIYUN_PASSWORD}" $ALIYUN_REGISTRY
 
 # Tag the Docker image
 echo "Tagging the Docker image..."

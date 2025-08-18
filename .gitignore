@@ -40,3 +40,4 @@ build/
 /.idea/
 /push_all_branches.sh
 /data/
+/ai-mcp-knowledge-app/.local-config

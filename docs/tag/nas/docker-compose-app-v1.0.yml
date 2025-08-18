@@ -1,8 +1,8 @@
 version: '3.8'
-# docker-compose -f docker-compose-app-v1.0.yml up -d
+# docker-compose -f docker-compose-app-v2.0.yml up -d
 services:
   ai-mcp-knowledge-app:
-    image: fuzhengwei/ai-mcp-knowledge-app:1.0
+    image: registry.cn-hangzhou.aliyuncs.com/fuzhengwei/ai-mcp-knowledge-app:2.1
     container_name: ai-mcp-knowledge-app
     restart: always
     ports:
@@ -22,9 +22,11 @@ services:
       - SPRING_AI_OLLAMA_MODEL=nomic-embed-text
       - SPRING_AI_OPENAI_BASE_URL=https://apis.itedus.cn
       - SPRING_AI_OPENAI_API_KEY=sk-0ppnJfd3Vid8TnMK60D7DdEeA21e420591B343D470190a03
+      - SPRING_AI_OPENAI_CHAT_OPTIONS_MODEL=gpt-4.1
       - SPRING_AI_OPENAI_EMBEDDING_MODEL=text-embedding-ada-002
       - SPRING_AI_RAG_EMBED=nomic-embed-text
       - SPRING_AI_MCP_CLIENT_STDIO_SERVERS_CONFIGURATION=file:/mcp/config/mcp-servers-config.json
+      - SPRING_AI_MCP_CLIENT_REQUEST_TIMEOUT=180s
       - REDIS_SDK_CONFIG_HOST=192.168.1.109
       - REDIS_SDK_CONFIG_PORT=16379
     logging:
