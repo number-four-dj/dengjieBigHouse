@@ -1,0 +1,1 @@
+[彻底搞懂KMP算法原理](https://www.xdull.cn/kmp.html)
